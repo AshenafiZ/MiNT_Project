@@ -1,0 +1,22 @@
+# Node.js dependencies (applies to both backend and frontend)
+node_modules/
+
+# Environment files
+.env
+
+# Build files
+build/
+dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE-specific files
+.idea/
+.vscode/
