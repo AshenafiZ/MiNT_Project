@@ -1,12 +1,11 @@
 {
   "name": "mint",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start:frontend": "cd frontend && npm run dev",
-    "start:backend": "cd backend && nodemon server.js",
-    "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
-    "install:all": "cd frontend && npm install && cd ../backend && npm install"
+    "start": "concurrently \"npm run start:client\" \"npm run start:server\"",
+    "start:client": "cd client && npm run dev",
+    "start:server": "cd server && npx nodemon src/server.js"
   },
   "keywords": [],
   "author": "",
@@ -14,5 +13,10 @@
   "description": "",
   "devDependencies": {
     "concurrently": "^9.1.0"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.0.2"
   }
 }
