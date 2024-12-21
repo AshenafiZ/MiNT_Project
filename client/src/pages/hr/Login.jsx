@@ -25,6 +25,7 @@ function Login(){
                 else if (role === 'office-manager') navigate('/office-manager');
                 else navigate('/'); // Default fallback
             } else {
+                console.log(response.data);
                 setError(response.data.message || 'Login failed. Please try again.');
             }
         } catch (err) {

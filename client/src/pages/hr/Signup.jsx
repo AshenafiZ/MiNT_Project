@@ -1,27 +1,46 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import './signup.css';
 
 function Signup (){
   const [formData, setFormData] = useState({
-    username: '',
+    firstname: '',
+    lastname: '',
     email: '',
+    phone: '',
+    role: '',
     password: '',
   });
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [roles, setRoles] = useState([])
 
-  // Handle input changes
+  useEffect(() => {
+    const fetchRoles = async () => {
+      try {
+        const response = await axios.post('/api/roles'); 
+        setRoles(response.data.roles); 
+      } catch (err) {
+        setError('Error fetching roles');
+      }
+    };
+
+    fetchRoles();
+  }, [])
+
+
   const handleChange = (e) => {
+    setError(null)
+    setSuccess(null)
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:5000/signup', {
+      const response = await fetch('/api/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -33,6 +52,8 @@ function Signup (){
       if (response.ok) {
         setSuccess(data.message);
         setError(null);
+        setFormData("")
+        
       } else {
         setError(data.message);
         setSuccess(null);
@@ -43,19 +64,29 @@ function Signup (){
     }
   };
 
+
   return (
     <div className="signup-container">
       <h2>Sign Up</h2>
-      {error && <div className="error-message">{error}</div>}
-      {success && <div className="success-message">{success}</div>}
       <form onSubmit={handleSubmit}>
         <div className="input-group">
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="first_name">First Name:</label>
           <input
             type="text"
-            id="username"
-            name="username"
-            value={formData.username}
+            id="first_name"
+            name="firstname"
+            value={formData.firstname}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="input-group">
+          <label htmlFor="last_name">Last Name:</label>
+          <input
+            type="text"
+            id="last_name"
+            name="lastname"
+            value={formData.lastname}
             onChange={handleChange}
             required
           />
@@ -72,6 +103,34 @@ function Signup (){
           />
         </div>
         <div className="input-group">
+          <label htmlFor="phone">Phone:</label>
+          <input
+            type="text"
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="input-group">
+          <label htmlFor="role">Role:</label>
+          <select
+            id="role"
+            name="role"
+            value={formData.role}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select a role</option>
+            {roles.map((role) => (
+              <option key={role} value={role}>
+                {role}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="input-group">
           <label htmlFor="password">Password:</label>
           <input
             type="password"
@@ -82,6 +141,8 @@ function Signup (){
             required
           />
         </div>
+        {error && <div className="error-message">{error}</div>}
+        {success && <div className="success-message">{success}</div>} 
         <button type="submit">Sign Up</button>
       </form>
     </div>

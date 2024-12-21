@@ -1,25 +1,25 @@
-const db = require('../../config/db');
+const connection = require('../../config/db');
 
-// Function to find a user by email
-const findUserByEmail = (email, callback) => {
-  const query = 'SELECT * FROM users WHERE email = ?';
-  db.query(query, [email], callback);
+const findRoles = (callback) => {
+  const query = 'SELECT name FROM roles WHERE 1';
+  connection.query(query, callback);
 };
 
-const createUser = (username, email, password, callback) => {
-    const query = 'INSERT INTO users (username, email, password) VALUES (?, ?, ?)';
-    connection.query(query, [username, email, password], callback);
+const findUserByEmail = (email, callback) => {
+  const query = 'SELECT * FROM users WHERE email = ?';
+  connection.query(query, [email], callback);
+};
+
+
+const createUser = (firstname, lastname, email, phone, role, password, callback) => {
+    const query = 'INSERT INTO users (firstname, lastname, email, phone, role, password) VALUES (?, ?, ?, ?, ?, ?)';
+    connection.query(query, [firstname, lastname, email, phone, role, password], callback);
   };
 
 module.exports = {
-  findUserByEmail, createUser
+  findUserByEmail, createUser, findRoles
 };
 
-
-
-// const addUser = (user, callback) => {
-//     db.query('INSERT INTO users (name, email) VALUES (?, ?)', [user.name, user.email], callback);
-// };
 
 
 
