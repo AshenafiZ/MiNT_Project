@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './signup.css';
+import '../style/pages/signup.css';
 
 function Signup (){
+  const Navigate = useNavigate()
   const [formData, setFormData] = useState({
     firstname: '',
     lastname: '',
@@ -18,7 +20,7 @@ function Signup (){
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const response = await axios.post('/api/roles'); 
+        const response = await axios.post('/api/user/roles'); 
         setRoles(response.data.roles); 
       } catch (err) {
         setError('Error fetching roles');
@@ -40,7 +42,7 @@ function Signup (){
     e.preventDefault();
 
     try {
-      const response = await fetch('/api/signup', {
+      const response = await fetch('/api/user/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -53,6 +55,7 @@ function Signup (){
         setSuccess(data.message);
         setError(null);
         setFormData("")
+        Navigate('/login')
         
       } else {
         setError(data.message);

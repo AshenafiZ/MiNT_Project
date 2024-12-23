@@ -1,38 +1,79 @@
-const userModel = require('../models/user');
-const db = require('../../config/db');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const { findUserByEmail, createUser, findRoles} = require('../models/userModel');
+require('dotenv').config();
 
-// Get all users
-const getUsers = (req, res) => {
-    userModel.getUsers((err, results) => {
-        if (err) {
-            return res.status(500).json({ message: 'Error fetching users', error: err });
-        }
-        res.status(200).json(results);
-    });
+const login = (req, res) => {
+  const { email, password } = req.body;
+
+  findUserByEmail(email, (err, results) => {
+    if (err) {
+      return res.status(500).send('Database error');
+    }
+    
+    if (results.length === 0) {
+      
+      return res.status(401).send('Invalid email or password');
+    }
+   
+    const user = results[0];
+    bcrypt.compare(password, user.password, (err, isMatch) => {
+      if (err){
+        return res.status(500).json({message: "Error in compairing password"})
+      }
+      if (!isMatch){
+        return res.status(400).json({message: "Invalid credentials "})
+      }
+      const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+       return res.status(200).json({ token, name:user.firstname, role: user.role , success:true, message: 'Login successful'})
+    })
+   
+  });
 };
 
-// Create a new user
-
-const createUser = (req, res) => {
-    const { f_name, l_name, email, phone, role } = req.body;
-
-    // Simple validation to check if all fields are provided
-    if (!f_name || !l_name || !email || !phone || !role) {
-        return res.status(400).json({ message: 'All fields are required' });
+const roles = (req, res) =>{
+  findRoles((err, results) => {
+    if(err) {
+      return res.status(500).json({err: 'Database error'})
+    }
+    if (results.length === 0) {
+      return res.status(400).json({err: "empty role"})
     }
 
-    // Insert new user into the database
-    const query = 'INSERT INTO user (f_name, l_name, email, phone, role) VALUES (?, ?, ?, ?, ?)';
-    db.query(query, [f_name, l_name, email, phone, role], (err, result) => {
+    
+    const roles = results
+    return res.status(201).json({roles: roles.map((role) => role.name)})
+  })
+
+}
+
+const signup = (req, res) => {
+    const { firstname, lastname, email, phone, role, password } = req.body; 
+  
+    findUserByEmail(email, (err, results) => {
+      if (err) {
+        return res.status(500).send('Database error');
+      }
+      if (results.length > 0) {
+        return res.status(400).send('Email already in use');
+      }
+  
+      bcrypt.hash(password, 10, (err, hashedPassword) => {
         if (err) {
-            console.error('Error inserting new user:', err);
-            return res.status(500).json({ message: 'Error adding user', error: err });
+          return res.status(500).send('Error hashing password');
         }
-        res.status(201).json({ message: 'User added successfully', userId: result.insertId });
+  
+        createUser(firstname, lastname, email, phone, role, hashedPassword, (err, results) => {
+          if (err) {
+            return res.status(500).json({message: 'Error creating user'});
+          }
+  
+          res.status(201).json({message: 'User registered successfully'});
+        });
+      });
     });
+  };
+
+module.exports = {
+  login, signup, roles
 };
-
-
-
-
-module.exports = { getUsers, createUser };

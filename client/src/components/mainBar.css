@@ -1,0 +1,30 @@
+.minister-navbar {
+    background-color: #004080;
+    color: white;
+    padding: 10px;
+    display: flex;
+    gap: 15px;
+  }
+  
+  .minister-navbar a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .minister-navbar a.active {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  
+  .main-content {
+    padding: 20px;
+    min-height: calc(100vh - 80px); /* Adjust for navbar and footer */
+  }
+  
+  .footer {
+    background-color: #004080;
+    color: white;
+    text-align: center;
+    padding: 10px;
+  }
+  

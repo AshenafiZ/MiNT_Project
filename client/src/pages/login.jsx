@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './login.css';
+import '../style/pages/login.css';
 
 function Login(){
     const [email, setEmail] = useState('');
@@ -13,17 +13,16 @@ function Login(){
         e.preventDefault();
 
         try {
-            const response = await axios.post('/api/login', { email, password });
+            const response = await axios.post('/api/user/login', { email, password });
 
             if (response.data.success) {
-                const { role } = response.data;
-
-                // Navigate based on role
+                const { role , token} = response.data;
+                localStorage.setItem('token', token)
                 if (role === 'admin') navigate('/admin');
                 else if (role === 'minister') navigate('/minister');
-                else if (role === 'sector-manager') navigate('/sector-manager');
-                else if (role === 'office-manager') navigate('/office-manager');
-                else navigate('/'); // Default fallback
+                else if (role === 'sector-manager') navigate('/sector');
+                else if (role === 'office-manager') navigate('/office');
+                else navigate('/');
             } else {
                 console.log(response.data);
                 setError(response.data.message || 'Login failed. Please try again.');
