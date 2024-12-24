@@ -1,6 +1,6 @@
 import React from 'react';
+import { FaFacebook, FaGithub, FaInstagram, FaTelegram, FaTiktok, FaYoutube } from 'react-icons/fa';
 import '../style/components/footer.css';
-import { FaFacebook, FaTelegram, FaInstagram, FaGithub, FaYoutube } from 'react-icons/fa';
 
 function Footer() {
   const currentYear = new Date().getFullYear()
@@ -28,7 +28,7 @@ function Footer() {
         <div className="footer-socials">
           <h4>Follow Us</h4>
           <div className="social-icons">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.facebook.com/MInT.Ethiopia?mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer">
               <FaFacebook />
             </a>
             <a href="https://t.me" target="_blank" rel="noopener noreferrer">
@@ -40,8 +40,11 @@ function Footer() {
             <a href="https://github.com" target="_blank" rel="noopener noreferrer">
               <FaGithub />
             </a>
-            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://youtube.com/@ministryofinnovationandtechnol?si=a2LF4SSTdlIQWEUH" target="_blank" rel="noopener noreferrer">
               <FaYoutube />
+            </a>
+            <a href="https://www.tiktok.com/@ethiopianministryofinnov?lang=en&is_from_webapp=1&sender_device=mobile&sender_web_id=7449108372555433478" target="_blank" rel="noopener noreferrer">
+             <FaTiktok />
             </a>
           </div>
         </div>
