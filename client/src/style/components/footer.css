@@ -9,7 +9,7 @@
     justify-content: space-between;
     align-items: center;
   }
-  
+
   .footer-container {
     display: flex;
     flex-wrap: wrap;
@@ -17,57 +17,57 @@
     width: 100%;
     max-width: 1200px;
   }
-  
+
   /* Logo and Description */
   .footer-logo {
     flex: 1;
     min-width: 200px;
     margin-bottom: 20px;
   }
-  
+
   .footer-logo h3 {
     font-size: 20px;
     margin-bottom: 10px;
     color: #f39c12; /* Gold color */
   }
-  
+
   .footer-logo p {
     font-size: 14px;
     line-height: 1.5;
   }
-  
+
   /* Navigation Links */
   .footer-links {
     flex: 1;
     min-width: 200px;
     margin-bottom: 20px;
   }
-  
+
   .footer-links h4 {
     font-size: 18px;
     margin-bottom: 10px;
   }
-  
+
   .footer-links ul {
     list-style: none;
     padding: 0;
   }
-  
+
   .footer-links ul li {
     margin-bottom: 8px;
   }
-  
+
   .footer-links ul li a {
     color: #ffffff;
     text-decoration: none;
     font-size: 14px;
     transition: color 0.3s ease;
   }
-  
+
   .footer-links ul li a:hover {
     color: #f39c12; /* Gold color */
   }
-  
+
   /* Social Media Links */
   .footer-socials {
     flex: 1;
@@ -75,29 +75,29 @@
     margin-bottom: 20px;
     text-align: center;
   }
-  
+
   .footer-socials h4 {
     font-size: 18px;
     margin-bottom: 10px;
   }
-  
+
   .social-icons {
     display: flex;
     justify-content: center;
     gap: 15px;
   }
-  
+
   .social-icons a {
     color: #ffffff;
     font-size: 24px;
     transition: transform 0.3s ease, color 0.3s ease;
   }
-  
+
   .social-icons a:hover {
     transform: scale(1.2);
     color: #f39c12; /* Gold color */
   }
-  
+
   /* Footer Bottom */
   .footer-bottom {
     width: 100%;
@@ -107,4 +107,25 @@
     border-top: 1px solid #f39c12; /* Gold color */
     padding-top: 10px;
   }
-  
+  .gridContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 20px;
+    padding:0 280px;
+    margin-top: 20px; /* Space from other elements */
+}
+
+.window {
+    background-color: #ed940f;
+    border: 1px solid #ddd;
+    border-radius: 80px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.window:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
