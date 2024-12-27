@@ -16,8 +16,9 @@ function SectorRoutes() {
   return (
     <SectorLayout>
       <Routes>
-        <Route path="/sector-manager/projects" element={<div>Projects </div>} />
-        <Route path="/sector-manager/teams" element={<div >Teams </div>} />
+        <Route path="/sector/projects" element={<div>Projects </div>} />
+        <Route path="/sector/profile" element={<div>User profile </div>} />
+        <Route path="/sector/teams" element={<div >Teams </div>} />
       </Routes>
     </SectorLayout>
   );

@@ -2,6 +2,7 @@ import React from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { Routes, Route } from 'react-router-dom';
 import MinisterLayout from '../layouts/ministerLayout';
+import GoalPage from '../pages/goal';
 
 function MinisterRoutes() {
   const token = localStorage.getItem('token');
@@ -15,13 +16,12 @@ function MinisterRoutes() {
   return (
     <MinisterLayout>
       <Routes>
-        <Route path="/minister/" element={<div>Dashboard </div>} />
-        <Route path="/minister/profile" element={<div>Profile </div>} />
-        <Route path="/minister/reports" element={<div>Reports </div>} />
-        <Route path="/minister/reports" element={<div>Reports </div>} />
-        <Route path="/minister/reports" element={<div>Reports </div>} />
-        <Route path="/minister/reports" element={<div>Reports </div>} />
-
+        <Route path="/" element={<div>Wellcome Minister</div>} />
+        <Route path="/goals" element={<GoalPage role = 'minister' />} />
+        <Route path="/kpas" element={<div>KPAs </div>} />
+        <Route path="/progress" element={<div>Reports </div>} />
+        <Route path="/reports" element={<div>Reports </div>} />
+        <Route path="/natification" element={<div>Reports </div>} />
       </Routes>
     </MinisterLayout>
   );

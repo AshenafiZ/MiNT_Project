@@ -3,76 +3,64 @@ const bcrypt = require('bcryptjs');
 const { findUserByEmail, createUser, findRoles} = require('../models/userModel');
 require('dotenv').config();
 
-const login = (req, res) => {
+// Login function
+const login = async (req, res) => {
   const { email, password } = req.body;
 
-  findUserByEmail(email, (err, results) => {
-    if (err) {
-      return res.status(500).send('Database error');
-    }
-    
-    if (results.length === 0) {
-      
+  try {
+    const userResults = await findUserByEmail(email);
+    if (userResults.length === 0) {
       return res.status(401).send('Invalid email or password');
     }
-   
-    const user = results[0];
-    bcrypt.compare(password, user.password, (err, isMatch) => {
-      if (err){
-        return res.status(500).json({message: "Error in compairing password"})
-      }
-      if (!isMatch){
-        return res.status(400).json({message: "Invalid credentials "})
-      }
-      const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
-       return res.status(200).json({ token, name:user.firstname, role: user.role , success:true, message: 'Login successful'})
-    })
-   
-  });
+
+    const user = userResults[0];
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
+
+    const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    return res.status(200).json({ token, name: user.firstname, role: user.role, success: true, message: 'Login successful' });
+  } catch (err) {
+    return res.status(500).json({ message: 'Error logging in', error: err.message });
+  }
 };
 
-const roles = (req, res) =>{
-  findRoles((err, results) => {
-    if(err) {
-      return res.status(500).json({err: 'Database error'})
+// Roles function
+const roles = async (req, res) => {
+  try {
+    const rolesResults = await findRoles();
+    if (rolesResults.length === 0) {
+      return res.status(400).json({ err: 'No roles available' });
     }
-    if (results.length === 0) {
-      return res.status(400).json({err: "empty role"})
+
+    const roles = rolesResults.map((role) => role.name);
+    return res.status(200).json({ roles });
+  } catch (err) {
+    return res.status(500).json({ err: 'Database error', error: err.message });
+  }
+};
+
+// Signup function
+const signup = async (req, res) => {
+  const { firstname, lastname, email, phone, role, password } = req.body;
+
+  try {
+    const existingUser = await findUserByEmail(email);
+    if (existingUser.length > 0) {
+      return res.status(400).send('Email already in use');
     }
 
-    
-    const roles = results
-    return res.status(201).json({roles: roles.map((role) => role.name)})
-  })
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await createUser(firstname, lastname, email, phone, role, hashedPassword);
+    return res.status(201).json({ message: 'User registered successfully' });
+  } catch (err) {
+    return res.status(500).json({ message: 'Error creating user', error: err.message });
+  }
+};
 
-}
 
-const signup = (req, res) => {
-    const { firstname, lastname, email, phone, role, password } = req.body; 
-  
-    findUserByEmail(email, (err, results) => {
-      if (err) {
-        return res.status(500).send('Database error');
-      }
-      if (results.length > 0) {
-        return res.status(400).send('Email already in use');
-      }
-  
-      bcrypt.hash(password, 10, (err, hashedPassword) => {
-        if (err) {
-          return res.status(500).send('Error hashing password');
-        }
-  
-        createUser(firstname, lastname, email, phone, role, hashedPassword, (err, results) => {
-          if (err) {
-            return res.status(500).json({message: 'Error creating user'});
-          }
-  
-          res.status(201).json({message: 'User registered successfully'});
-        });
-      });
-    });
-  };
+
 
 module.exports = {
   login, signup, roles

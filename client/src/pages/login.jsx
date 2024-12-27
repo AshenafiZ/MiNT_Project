@@ -20,8 +20,9 @@ function Login(){
                 localStorage.setItem('token', token)
                 if (role === 'admin') navigate('/admin');
                 else if (role === 'minister') navigate('/minister');
-                else if (role === 'sector-manager') navigate('/sector');
-                else if (role === 'office-manager') navigate('/office');
+                else if (role === 'sector') navigate('/sector');
+                else if (role === 'office') navigate('/office');
+                else if (role === 'strategy') navigate('/strategy');
                 else navigate('/');
             } else {
                 console.log(response.data);

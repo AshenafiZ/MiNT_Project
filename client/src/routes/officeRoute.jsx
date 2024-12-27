@@ -1,9 +1,9 @@
 import React from 'react';
 import { jwtDecode } from 'jwt-decode';
-import { Routes, Route } from 'react-router-dom';
-import OfficerLayout from '../layouts/officeLayout';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import OfficeLayout from '../layouts/officeLayout';
 
-function OfficerRoutes() {
+function OfficeRoutes() {
   const token = localStorage.getItem('token');
   if (!token){
     return (<Navigate to='/login'/>)
@@ -13,13 +13,15 @@ function OfficerRoutes() {
     return (<div>Unauthorize</div>)
   }
   return (
-    <OfficerLayout>
+    <OfficeLayout>
       <Routes>
-        <Route path="/office/tasks" element={<div>Tasks </div>} />
-        <Route path="/office/notifications" element={<div>Notifications </div>} />
+        <Route path="/" element={<div>Wellcome officer</div>} />
+        <Route path="/tasks" element={<div>Tasks </div>} />
+        <Route path='/profile' element={<div>User profiles</div>} />
+        <Route path="/notifications" element={<div>Notifications </div>} />
       </Routes>
-    </OfficerLayout>
+    </OfficeLayout>
   );
 }
 
-export default OfficerRoutes;
+export default OfficeRoutes;

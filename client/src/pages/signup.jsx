@@ -20,7 +20,7 @@ function Signup (){
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const response = await axios.post('/api/user/roles'); 
+        const response = await axios.post('/api/user/role'); 
         setRoles(response.data.roles); 
       } catch (err) {
         setError('Error fetching roles');
@@ -70,11 +70,11 @@ function Signup (){
 
   return (
     <div className="signup-container">
-      <h2>Sign Up</h2>
+      <h2 className='sh2'>Sign Up</h2>
       <form onSubmit={handleSubmit}>
         <div className="input-group">
-          <label htmlFor="first_name">First Name:</label>
-          <input
+          <label className='slabel' htmlFor="first_name">First Name:</label>
+          <input className='sinput'
             type="text"
             id="first_name"
             name="firstname"
@@ -84,8 +84,8 @@ function Signup (){
           />
         </div>
         <div className="input-group">
-          <label htmlFor="last_name">Last Name:</label>
-          <input
+          <label className='slabel' htmlFor="last_name">Last Name:</label>
+          <input className='sinput'
             type="text"
             id="last_name"
             name="lastname"
@@ -95,8 +95,8 @@ function Signup (){
           />
         </div>
         <div className="input-group">
-          <label htmlFor="email">Email:</label>
-          <input
+          <label className='slabel' htmlFor="email">Email:</label>
+          <input className='sinput'
             type="email"
             id="email"
             name="email"
@@ -106,8 +106,8 @@ function Signup (){
           />
         </div>
         <div className="input-group">
-          <label htmlFor="phone">Phone:</label>
-          <input
+          <label className='slabel' htmlFor="phone">Phone:</label>
+          <input className='sinput'
             type="text"
             id="phone"
             name="phone"
@@ -117,7 +117,7 @@ function Signup (){
           />
         </div>
         <div className="input-group">
-          <label htmlFor="role">Role:</label>
+          <label className='slabel' htmlFor="role">Role:</label>
           <select
             id="role"
             name="role"
@@ -134,8 +134,8 @@ function Signup (){
           </select>
         </div>
         <div className="input-group">
-          <label htmlFor="password">Password:</label>
-          <input
+          <label className='slabel' htmlFor="password">Password:</label>
+          <input className='sinput'
             type="password"
             id="password"
             name="password"
@@ -146,7 +146,7 @@ function Signup (){
         </div>
         {error && <div className="error-message">{error}</div>}
         {success && <div className="success-message">{success}</div>} 
-        <button type="submit">Sign Up</button>
+        <button className='sbutton' type="submit">Sign Up</button>
       </form>
     </div>
   );

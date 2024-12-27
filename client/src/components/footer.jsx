@@ -28,7 +28,7 @@ function Footer() {
         <div className="footer-socials">
           <h4>Follow Us</h4>
           <div className="social-icons">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://web.facebook.com/MInT.Ethiopia?_rdc=1&_rdr" target="_blank" rel="noopener noreferrer">
               <FaFacebook />
             </a>
             <a href="https://t.me" target="_blank" rel="noopener noreferrer">
@@ -40,7 +40,7 @@ function Footer() {
             <a href="https://github.com" target="_blank" rel="noopener noreferrer">
               <FaGithub />
             </a>
-            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.youtube.com/@MinistryofInnovationandTechnol" target="_blank" rel="noopener noreferrer">
               <FaYoutube />
             </a>
           </div>

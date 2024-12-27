@@ -7,7 +7,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  h2 {
+  .sh2 {
     text-align: center;
   }
   
@@ -15,12 +15,12 @@
     margin-bottom: 15px;
   }
   
-  label {
+  .slabel {
     font-size: 14px;
     color: #333;
   }
   
-  input {
+  .sinput {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
@@ -29,7 +29,7 @@
     font-size: 14px;
   }
   
-  button {
+  .sbutton {
     width: 100%;
     padding: 10px;
     background-color: #4CAF50;
@@ -40,7 +40,7 @@
     cursor: pointer;
   }
   
-  button:hover {
+  .sbutton:hover {
     background-color: #45a049;
   }
   
