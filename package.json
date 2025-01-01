@@ -15,6 +15,7 @@
     "concurrently": "^9.1.0"
   },
   "dependencies": {
+    "mint": "file:",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.0.2"
