@@ -1,71 +1,69 @@
 const getAllGoals = async () => {
   const [rows] = await pool.query(`SELECT 
-            g.Goal_ID, 
-            g.Title AS Goal_Title,
-            k.KPA_ID, 
-            k.Title AS KPA_Title,
-            kp.KPI_ID, 
-            kp.Title AS KPI_Title, 
-            kp.Q1, 
-            kp.Q2, 
-            kp.Q3, 
-            kp.Q4, 
+            g.goal_id, 
+            g.title AS goal_title,
+            k.kpa_id, 
+            k.status,
+            k.title AS kpa_title,
+            kp.kpi_id, 
+            kp.title AS kpi_title, 
+            kp.q1, 
+            kp.q2, 
+            kp.q3, 
+            kp.q4, 
             kp.target, 
-            kp.A1, 
-            kp.A2, 
-            kp.A3, 
-            kp.A4, 
+            kp.a1, 
+            kp.a2, 
+            kp.a3, 
+            kp.a4, 
             kp.achieved
         FROM Goals g
-        LEFT JOIN Kpas k ON g.Goal_ID = k.Goal_ID
-        LEFT JOIN kpis kp ON k.KPA_ID = kp.KPA_ID;`);
+        LEFT JOIN Kpas k ON g.goal_id = k.goal_id
+        LEFT JOIN kpis kp ON k.kpa_id = kp.kpa_id;`);
   
-  const goals = [];
   const goalMap = new Map();
 
   rows.forEach(row => {
-    // Create goal object if it doesn't exist
-    if (!goalMap.has(row.Goal_ID)) {
-      goalMap.set(row.Goal_ID, {
-        id: row.Goal_ID,
-        title: row.Goal_Title,
+    if (!goalMap.has(row.goal_id)) {
+      goalMap.set(row.goal_id, {
+        id: row.goal_id,
+        title: row.goal_title,
         kpas: []
       });
     }
 
-    // Create KPA object if it doesn't exist
-    const goal = goalMap.get(row.Goal_ID);
-    let kpa = goal.kpas.find(k => k.id === row.KPA_ID);
+    const goal = goalMap.get(row.goal_id);
+    let kpa = goal.kpas.find(k => k.id === row.kpa_id);
     
-    if (!kpa && row.KPA_ID !== null) {
+    if (!kpa && row.kpa_id !== null) {
       kpa = {
-        id: row.KPA_ID,
-        title: row.KPA_Title,
-        kpis: []  // Empty array if no KPIs
+        id: row.kpa_id,
+        title: row.kpa_title,
+        status: row.status,
+        kpis: []  
       };
       goal.kpas.push(kpa);
     }
 
-    // Add KPI to the KPA if it exists
-    if (row.KPI_ID !== null) {
+    if (row.kpi_id !== null) {
       kpa.kpis.push({
-        id: row.KPI_ID,
-        title: row.KPI_Title,
-        Q1: row.Q1 ,  // Default to empty array if no data
-        Q2: row.Q2 ,  // Default to empty array if no data
-        Q3: row.Q3,  // Default to empty array if no data
-        Q4: row.Q4 ,  // Default to empty array if no data
-        target: row.target,  // Default to empty array if no data
-        A1: row.A1 ,  // Default to empty array if no data
-        A2: row.A2 ,  // Default to empty array if no data
-        A3: row.A3 ,  // Default to empty array if no data
-        A4: row.A4 ,  // Default to empty array if no data
-        achieved: row.achieved  // Default to empty array if no data
+        id: row.kpi_id,
+        title: row.kpi_title,
+        q1: row.q1 ,
+        q2: row.q2 ,
+        q3: row.q3,
+        q4: row.q4 ,
+        target: row.target,
+        a1: row.a1 ,
+        a2: row.a2 ,
+        a3: row.a3 ,
+        a4: row.a4 ,
+        achieved: row.achieved
       });
     }
   });
 
-  // Convert the map values to an array and return
+
   return Array.from(goalMap.values());
 };
 
@@ -106,11 +104,11 @@ const createKpa = async (kpa) => {
 };
 
 const createKpi = async (kpi) => {
-  const {title, Q1, Q2, Q3, Q4, target, kpa_id} = kpi;
+  const {title, q1, q2, q3, q4, target, kpa_id} = kpi;
   console.log(kpi);
   const [result] = await pool.query(
-    "INSERT INTO kpis (Title, Q1, Q2, Q3, Q4, Target, kpa_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
-    [title, Q1, Q2, Q3, Q4, target, kpa_id]
+    "INSERT INTO kpis (Title, q1, q2, q3, q4, target, kpa_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
+    [title, q1, q2, q3, q4, target, kpa_id]
   );
   return { Kpi_ID: result.insertId, ...kpi };
 };

@@ -1,18 +1,16 @@
 import React from 'react';
-import { jwtDecode } from 'jwt-decode';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route} from 'react-router-dom';
 import AdminLayout from '../layouts/adminLayout';
+import { useUser } from '../context/userContext';
 
 
 function AdminRoutes() {
-  const token = localStorage.getItem('token');
-  if (!token){
-    return (<Navigate to='/login'/>)
-  }
-  const payload = jwtDecode(token)
+  const { user } = useUser();
+
   if (payload.role !== 'admin'){
     return (<div>Unauthorize</div>)
   }
+
   return (
     <AdminLayout>
       <Routes>

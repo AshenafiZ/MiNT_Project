@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../context/userContext';
+
 import '../style/pages/login.css';
 
 function Login(){
@@ -8,16 +10,16 @@ function Login(){
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const { loginUser } = useUser();
 
     const handleLogin = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('/api/user/login', { email, password });
-
+            const response = await axios.post('/api/user/login', { email, password }, { withCredentials: true});
+            loginUser(response.data);
             if (response.data.success) {
-                const { role , token} = response.data;
-                localStorage.setItem('token', token)
+                const { role} = response.data;
                 if (role === 'admin') navigate('/admin');
                 else if (role === 'minister') navigate('/minister');
                 else if (role === 'sector') navigate('/sector');
@@ -25,11 +27,10 @@ function Login(){
                 else if (role === 'strategy') navigate('/strategy');
                 else navigate('/');
             } else {
-                console.log(response.data);
                 setError(response.data.message || 'Login failed. Please try again.');
             }
         } catch (err) {
-            setError('An error occurred. Please check your credentials and try again.');
+            alert("An error occurred. Please check your credentials and try again.")
         }
     };
 

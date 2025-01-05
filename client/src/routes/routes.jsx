@@ -16,6 +16,7 @@ function AppRoutes() {
         <Route path="/office/*" element={<OfficeRoutes />} />
         <Route path="/minister/*" element={<MinisterRoutes />} />
         <Route path="/strategy/*" element={<StrategyRoutes />} />
+        <Route path="*" element={<div> Page not found 404</div>} />
       </Routes>
   );
 }

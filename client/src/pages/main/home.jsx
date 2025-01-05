@@ -28,6 +28,10 @@ const Home = () => {
     <div className="home-container">
       <div className="hero-section">
         <div className="hero-content">
+          <div className="hero-text">
+            <h1>Ministry of Innovation and Technology</h1>
+            <p>Driving Ethiopia's future through cutting-edge innovation.</p>
+          </div>
           <div className="image-container">
             <img
               src={imageList[currentIndex]}
@@ -42,11 +46,7 @@ const Home = () => {
                 &#8250;
               </button>
             </div>
-          </div>
-          <div className="hero-text">
-            <h1>Ministry of Innovation and Technology</h1>
-            <p>Driving Ethiopia's future through cutting-edge innovation.</p>
-          </div>
+          </div>  
         </div>
       </div>
 

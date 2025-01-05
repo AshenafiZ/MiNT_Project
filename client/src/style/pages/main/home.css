@@ -1,11 +1,11 @@
 .home-container {
-  padding: 0;
+  padding: 20px;
 }
 
 /* Hero Section */
 .hero-section {
   position: relative;
-  height: 80vh;
+  min-height: 100vh;
   color: rgb(44, 4, 4);
   display: flex;
   justify-content: center;

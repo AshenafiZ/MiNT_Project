@@ -1,11 +1,11 @@
 import React from 'react';
 import Goal from './goal';
 
-const GoalList = ({goals, role}) => {
+const GoalList = ({goals}) => {
     return (
       <div className='goalList' >
         {goals.map(goal => (
-          <Goal key={goal.id} goal={goal} role={role} />
+          <Goal key={goal.id} goal={goal} />
         ))}
       </div>
     );

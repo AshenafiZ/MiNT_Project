@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios'
 import KeyPerformanceAreaList from './KPAList';
+import { useUser } from '../context/userContext';
 
-const Goal = ({goal, role}) => {
+const Goal = ({goal}) => {
 
     const [showKpaForm, setShowKpaForm] = useState(false);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const { user } = useUser();
 
   
     const handleAddKPA = async (id) => {
@@ -23,7 +25,7 @@ const Goal = ({goal, role}) => {
     return (
       <div className='goal'>
         <h2 className='goalTitle'>{goal.title}</h2>
-        {role === 'strategy' && 
+        {user.role === 'strategy' && 
           <>
             <button onClick={() => setShowKpaForm(!showKpaForm)} className='addButton'>Create New KPA</button>
             {showKpaForm && <div className='form'>
@@ -45,7 +47,7 @@ const Goal = ({goal, role}) => {
               <button key={goal.id} className='addButton' onClick={() => handleAddKPA(goal.id)}>Add KPA</button>
             </div>}
           </>}
-        <KeyPerformanceAreaList keyPerformanceAreas={goal.kpas} role={role} />
+        <KeyPerformanceAreaList keyPerformanceAreas={goal.kpas} />
       </div>
     );
   };

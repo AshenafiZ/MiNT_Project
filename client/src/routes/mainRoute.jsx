@@ -6,7 +6,7 @@ import Signup from '../pages/signup';
 import Login from '../pages/login';
 import Logout from '../pages/logout'
 import About from '../pages/main/about';
-import KPAForm from '../components/KPAForm';
+import KeyPerformanceArea from '../pages/sector/kpas';
 
 function MainRoutes() {
   return (
@@ -18,8 +18,8 @@ function MainRoutes() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />               
         <Route path="/logout" element={<Logout />} />  
-        <Route path="/kpa" element={<KPAForm />} />               
-
+        <Route path="/kpas" element={<KeyPerformanceArea />} />               
+        <Route path="/a" element={<KeyPerformanceArea />} />               
       </Routes>
     </MainLayout>
   );

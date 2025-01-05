@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const verifyRole = (allowedRoles) => {
   return (req, res, next) => {
-    const token = req.headers['authorization'];
+    const token = req.cookies.token;
 
     if (!token) {
       return res.status(401).json({ message: 'Unauthorized: No token provided' });
@@ -22,5 +22,7 @@ const verifyRole = (allowedRoles) => {
     }
   };
 };
+
+
 
 module.exports = verifyRole;

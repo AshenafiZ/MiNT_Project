@@ -3,7 +3,7 @@ import axios from 'axios'
 import GoalList from '../components/goalList';
 import '../style/components/goalPage.css';
 
-const GoalPage = ({role}) =>  {
+const GoalPage = () =>  {
     const [goals, setGoals] = useState([])
     const [loading, setLoading] = useState(true)
 
@@ -19,6 +19,8 @@ const GoalPage = ({role}) =>  {
         }
       }
       fetchGoals();
+      const interval = setInterval(fetchGoals, 500);
+      return () => clearInterval(interval);
       
     }, [])
 
@@ -27,7 +29,7 @@ const GoalPage = ({role}) =>  {
     return (
       <div className='appContainer'>
         <h1 className='title'>The Company Goals</h1>
-        <GoalList goals={goals} role={role} />
+        <GoalList goals={goals}  />
       </div>
     );
   };

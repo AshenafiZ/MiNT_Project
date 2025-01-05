@@ -19,18 +19,18 @@ const KeyPerformanceIndicator = ({kpi, id}) => {
                     <tbody>
                         <tr >
                             <td>Target</td>
-                            <td>{kpi.Q1}</td>
-                            <td>{kpi.Q2}</td>
-                            <td>{kpi.Q3}</td>
-                            <td>{kpi.Q4}</td>
+                            <td>{kpi.q1}</td>
+                            <td>{kpi.q2}</td>
+                            <td>{kpi.q3}</td>
+                            <td>{kpi.q4}</td>
                             <td>{kpi.target}</td>
                         </tr>
                         <tr >
                             <td>Achieved</td>
-                            <td>{kpi.A1 !== 0 ? kpi.A1 : ''}</td>
-                            <td>{kpi.A2 !== 0 ? kpi.A2 : ''}</td>
-                            <td>{kpi.A3 !== 0 ? kpi.A3 : ''}</td>
-                            <td>{kpi.A4 !== 0 ? kpi.A4 : ''}</td>
+                            <td>{kpi.a1 !== 0 ? kpi.a1 : ''}</td>
+                            <td>{kpi.a2 !== 0 ? kpi.a2 : ''}</td>
+                            <td>{kpi.a3 !== 0 ? kpi.a3 : ''}</td>
+                            <td>{kpi.a4 !== 0 ? kpi.a4 : ''}</td>
                             <td>{kpi.achieved !== 0 ? kpi.achieved : ''}</td>
                         </tr>
                     

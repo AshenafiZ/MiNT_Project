@@ -24,6 +24,7 @@ app.use('/api/strategy', strategyRoute);
 app.use('/api/sector', sectorRouter);
 app.use('/api/office', officeRouter);
 
+
 app.use(errorHandler)
 
 app.listen(PORT, () => {

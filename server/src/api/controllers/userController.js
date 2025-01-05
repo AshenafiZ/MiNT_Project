@@ -3,7 +3,6 @@ const bcrypt = require('bcryptjs');
 const { findUserByEmail, createUser, findRoles} = require('../models/userModel');
 require('dotenv').config();
 
-// Login function
 const login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -16,17 +15,55 @@ const login = async (req, res) => {
     const user = userResults[0];
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: 'Invalid credentials' });
+      return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    return res.status(200).json({ token, name: user.firstname, role: user.role, success: true, message: 'Login successful' });
+    const token = jwt.sign(
+      { id: user.id, role: user.role, name: user.firstname+ " "+ user.lastname, sector_id: user.sector_id || null, office_id: user.office_id || null,}, 
+      process.env.JWT_SECRET, 
+      { expiresIn: '1h' });
+
+    res.cookie("token", token, { 
+      httpOnly: true, 
+      sameSite: "Strict", 
+      secure: process.env.NODE_ENV === 'production' 
+    });
+
+    return res.status(200).json({
+      id: user.id,
+      role: user.role,
+      sector_id: user.sector_id,
+      office_id: user.office_id,
+      name: user.firstname+ " "+ user.lastname,
+      success: true, message: 'Login successful' 
+    });
+
   } catch (err) {
-    return res.status(500).json({ message: 'Error logging in', error: err.message });
+    console.error("Error logging in:", err.message);
+    return res.status(500).json({ message: 'Error logging in'});
   }
 };
 
-// Roles function
+const logout = (req, res) => {
+  res.clearCookie("token", { httpOnly: true, sameSite: "Strict" }).sendStatus(200);
+};
+
+const getUser = (req, res) => {
+  const token = req.cookies.token;
+  if (!token) {
+    return res.status(401).json({ message: "Not authenticated" });
+  }
+
+  try {
+    const user = jwt.verify(token, process.env.JWT_SECRET);
+    return res.status(200).json(user);
+  } catch (error) {
+    console.error("Error verifying token:", error.message);
+    return res.status(401).json({ message: "Invalid or expired token" });
+  }
+};
+
+
 const roles = async (req, res) => {
   try {
     const rolesResults = await findRoles();
@@ -41,7 +78,6 @@ const roles = async (req, res) => {
   }
 };
 
-// Signup function
 const signup = async (req, res) => {
   const { firstname, lastname, email, phone, role, password } = req.body;
 
@@ -63,5 +99,5 @@ const signup = async (req, res) => {
 
 
 module.exports = {
-  login, signup, roles
+  login, signup, roles, logout, getUser
 };
