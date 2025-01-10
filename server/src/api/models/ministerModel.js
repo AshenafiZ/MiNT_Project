@@ -1,14 +1,12 @@
-const updateGoal = async (id, goal) => {
-    const { status } = goal;
-    await pool.query(
-      "UPDATE goals SET status = ? WHERE goal_id = ?",
-      [status, id]
+const updateGoal = async (id, user_id, status, approved_at) => {
+    const [result] = await pool.query(
+      "UPDATE goals SET status = ?, approved_by = ?, approved_at = ? WHERE goal_id = ?",
+      [status, user_id, approved_at, id]
     );
-    return { Goal_ID: id, ...goal };
+    return result;
   };
 
 const updateKpa = async (id, user_id, status, approved_at) => {
-    console.log(id, status, user_id, approved_at)
     const [result] = await pool.query(
         "UPDATE kpas SET status = ?, approved_by = ?, approved_at = ? WHERE kpa_id = ?",
         [status, user_id, approved_at, id]
@@ -17,18 +15,21 @@ const updateKpa = async (id, user_id, status, approved_at) => {
 }
 
 const approvedKpa = async() => {
-    await pool.query(`SELECT * FROM kpas WHERE status= "approved"`);
+    const [result] = await pool.query(`SELECT * FROM kpas WHERE status= "approved"`);
+    return result;
 }
 
 const approvedByMe = async(id) => {
-    await pool.query(
+    const [result] = await pool.query(
         `SELECT * FROM kpas WHERE status = "approved" and approved_by = ?`,
         [id]
-    )
+    );
+    return result;
 }
 
 const rejectedKpa = async() => {
-    await pool.query('SELECT * FROM kpas WHERE status = "rejected"');
+    const [result] = await pool.query('SELECT * FROM kpas WHERE status = "rejected"');
+    return result;
 }
 
 const rejectedByMe = async(id) => {

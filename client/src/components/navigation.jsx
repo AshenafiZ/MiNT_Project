@@ -14,6 +14,7 @@ const navConfig = {
     { path: '/minister', label: 'Home' },
     { path: '/minister/goals', label: 'Goals' },
     { path: '/minister/kpas', label: 'KPAs' },
+    { path: '/minister/newkpas', label: 'New kPAs' },
     { path: '/minister/progress', label: 'Progress' },
     { path: '/minister/approvals', label: 'Approvals' },
   ],
@@ -68,7 +69,7 @@ function Navigation({ role = 'main', profilePhoto }) {
         {role !== 'main' && (
           <div className="profile">
             <img src={profilePhoto || '/default-avatar.png'} alt="Profile" className="profile-photo" />
-            <div className="profile-dropdown">
+            <div className="profile-dropdown ">
               <Link to={`/${role}/profile`}>Profile</Link>
               <Link to="/logout">Logout</Link>
             </div>

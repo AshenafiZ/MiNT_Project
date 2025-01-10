@@ -9,11 +9,9 @@ const KeyPerformanceArea = () => {
   const { user } = useUser();
 
   useEffect(() => {
-    const id = 3;
     const fetchKpas = async () => {
       try {
-        const response = await axios.get(`api/sector/kpas/${id}`);
-        console.log("kpas: ", response.status);
+        const response = await axios.get(`/api/sector/kpas/${user.sector_id}`, {withCredentials: true});
         setKpas(response.data);
         setLoading(false);
       } catch (error) {

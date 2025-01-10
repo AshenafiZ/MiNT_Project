@@ -4,6 +4,7 @@ import MinisterLayout from '../layouts/ministerLayout';
 import GoalPage from '../pages/goal';
 import { useUser } from '../context/userContext';
 import KeyPerformanceArea from '../pages/sector/kpas';
+import NewKPAs from '../pages/minister/newKpas';
 
 function MinisterRoutes() {
 
@@ -19,6 +20,7 @@ function MinisterRoutes() {
         <Route path="/" element={<div>Wellcome Minister</div>} />
         <Route path="/goals" element={<GoalPage />} />
         <Route path="/kpas" element={<KeyPerformanceArea />} />
+        <Route path="/newkpas" element={<NewKPAs />} />
         <Route path="/progress" element={<div>Reports </div>} />
         <Route path="/reports" element={<div>Reports </div>} />
         <Route path="/natification" element={<div>Reports </div>} />

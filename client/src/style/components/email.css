@@ -1,0 +1,18 @@
+.emailContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.emailForm {
+    display: flex;
+    flex-direction: column;
+}
+.emailInput,
+.emailText {
+    margin: 20px 0px;
+}
+.emailButton {
+    background-color: greenyellow;
+}

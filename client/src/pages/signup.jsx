@@ -20,8 +20,9 @@ function Signup (){
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const response = await axios.post('/api/user/role'); 
+        const response = await axios.get('/api/user/roles'); 
         setRoles(response.data.roles); 
+        console.log("new" ,response.data.roles)
       } catch (err) {
         setError('Error fetching roles');
       }
@@ -126,7 +127,7 @@ function Signup (){
             required
           >
             <option value="">Select a role</option>
-            {roles.map((role) => (
+            {roles?.map((role) => (
               <option key={role} value={role}>
                 {role}
               </option>
