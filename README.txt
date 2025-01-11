@@ -1,1 +1,1 @@
-haile is strat
+PLANING ABOUT MINT PROJECT
