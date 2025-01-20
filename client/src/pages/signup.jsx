@@ -4,7 +4,7 @@ import axios from 'axios';
 import '../style/pages/signup.css';
 
 function Signup (){
-  const Navigate = useNavigate()
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     firstname: '',
     lastname: '',
@@ -12,6 +12,7 @@ function Signup (){
     phone: '',
     role: '',
     password: '',
+    profilePhoto:null,
   });
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
@@ -21,8 +22,7 @@ function Signup (){
     const fetchRoles = async () => {
       try {
         const response = await axios.get('/api/user/roles'); 
-        setRoles(response.data.roles); 
-        console.log("new" ,response.data.roles)
+        setRoles(response.data); 
       } catch (err) {
         setError('Error fetching roles');
       }
@@ -38,33 +38,45 @@ function Signup (){
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+  const handleFileChange = (e) => {
+    setFormData({ ...formData, profilePhoto: e.target.files[0] });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('/api/user/signup', {
-        method: 'POST',
+      const signupData = new FormData();
+      signupData.append('firstname', formData.firstname);
+      signupData.append('lastname', formData.lastname);
+      signupData.append('email', formData.email);
+      signupData.append('phone', formData.phone);
+      signupData.append('role', formData.role);
+      signupData.append('password', formData.password);
+      if (formData.profilePhoto) {
+        signupData.append('profilePhoto', formData.profilePhoto);
+      }
+
+      const response = await axios.post('/api/user/signup', signupData, {
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'multipart/form-data',
         },
-        body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
-      if (response.ok) {
-        setSuccess(data.message);
-        setError(null);
-        setFormData("")
-        Navigate('/login')
-        
-      } else {
-        setError(data.message);
-        setSuccess(null);
-      }
-    } catch (error) {
-      setError('Something went wrong!');
-      setSuccess(null);
+      setSuccess(response.data.message);
+      setFormData({
+        firstname: '',
+        lastname: '',
+        email: '',
+        phone: '',
+        role: '',
+        password: '',
+        profilePhoto: null,
+      });
+      navigate('/login');
+    } catch (err) {
+      console.error('Error signing up:', err);
+      setError(err.response?.data?.message || 'Signup failed. Please try again.');
     }
   };
 
@@ -117,6 +129,10 @@ function Signup (){
             required
           />
         </div>
+        <div className='input-group'>
+          <label className='slabel' htmlFor='profilePhoto'>Profile Photo:</label>
+          <input type="file" id='profilePhoto' name="profilePhoto" accept="image/*" onChange={handleFileChange} />
+        </div>
         <div className="input-group">
           <label className='slabel' htmlFor="role">Role:</label>
           <select
@@ -126,6 +142,7 @@ function Signup (){
             onChange={handleChange}
             required
           >
+          
             <option value="">Select a role</option>
             {roles?.map((role) => (
               <option key={role} value={role}>

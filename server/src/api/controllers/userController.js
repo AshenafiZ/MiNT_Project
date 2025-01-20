@@ -20,7 +20,9 @@ const login = async (req, res) => {
     if (!isMatch) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
-
+    
+    const result = await Role.findOne({ where: { id: user.role_id } });
+    console.log(result.name);
     let profilePhoto = null;
     if (user.profile_photo) {
       profilePhoto = `data:image/jpeg;base64,${user.profile_photo.toString('base64')}`;
@@ -29,7 +31,7 @@ const login = async (req, res) => {
     const token = jwt.sign(
       { 
         id: user.id, 
-        role: user.role,
+        role: result.name,
         sector_id: user.sector_id,
         office_id: user.office_id, 
         name: `${user.firstname} ${user.lastname}`,
@@ -47,7 +49,7 @@ const login = async (req, res) => {
 
     return res.status(200).json({
       id: user.id,
-      role: user.role,
+      role: result.name,
       sector_id: user.sector_id,
       office_id: user.office_id,
       name: `${user.firstname} ${user.lastname}`,
@@ -100,16 +102,16 @@ const createRole = async (req, res) => {
 // Fetch all roles
 const roles = async (req, res) => {
   try {
-    const roles = await Role.findAll({
+    const result = await Role.findAll({
       attributes: ['name'],
       where: { name: { [Op.not]: 'admin' } }, 
     });
 
-    if (roles.length === 0) {
+    if (result.length === 0) {
       return res.status(404).json({ message: 'No roles found' });
     }
-    const roleNames = roles.map((role) => role.name);
-    return res.status(200).json(roleNames);
+    const roles = result.map((role) => role.name);
+    return res.status(200).json(roles);
   } catch (error) {
     console.error('Error fetching roles:', error.message);
     return res.status(500).json({ message: 'Error fetching roles', error: error.message });
@@ -127,6 +129,12 @@ const signup = async (req, res) => {
       return res.status(400).json({ message: 'Email already in use' });
     }
 
+    const result = await Role.findOne({ where: { name: role} });
+    console.log(result)
+    if (!role) {
+      return res.status(400).json({ message: 'Invalid role name' });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await User.create({
@@ -134,7 +142,7 @@ const signup = async (req, res) => {
       lastname,
       email,
       phone,
-      role,
+      role_id: result.id,
       password: hashedPassword,
       profile_photo: profilePhoto ? profilePhoto.buffer : null, // Save file buffer as BLOB
     });

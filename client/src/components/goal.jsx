@@ -13,7 +13,7 @@ const Goal = ({goal}) => {
   
     const handleAddKPA = async (id) => {
       try {
-        const response = await axios.post('/api/strategy/kpas', {goal_id: id, title, description})
+        const response = await axios.post('/api/strategy/kpa', {goal_id: id, title, description})
         setTitle('');
         setDescription('');
         setShowKpaForm(false);

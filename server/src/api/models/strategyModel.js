@@ -1,8 +1,4 @@
 const EthiopianDate = require('ethiopian-date');
-
-
-
-
 const getAllGoals = async () => {
   const [rows] = await pool.query(`SELECT 
             g.goal_id, 

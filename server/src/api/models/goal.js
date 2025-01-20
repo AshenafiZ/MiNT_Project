@@ -9,4 +9,6 @@ const Goal = sequelize.define('Goal', {
     approved_at: { type: DataTypes.DATE, allowNull: true },
 });
 
+
+
 module.exports = Goal;

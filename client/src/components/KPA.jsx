@@ -19,12 +19,13 @@ function KeyPerformanceArea({kpa}) {
     const status = kpa.status;
     const handleAddKPI = async (newId) => {
       try {
-        const response = await axios.post('/api/strategy/kpis',{...kpiData, kpa_id: newId});
+        const response = await axios.post(`/api/strategy/${newId}/kpi`,kpiData);
         if (response.data.success) {
           alert('Successfully Added KPI')
         }
         setKpiData({
           title: "",
+          unit: "",
           kpa_id: 0,
           q1: 0,
           q2: 0,
@@ -67,6 +68,14 @@ function KeyPerformanceArea({kpa}) {
                 required
               />
               <input
+                type="text"
+                placeholder="Enter KPI Unit"
+                value={kpiData.unit}
+                onChange={(e) => setKpiData({ ...kpiData, unit: e.target.value })}
+                className="inputField"
+                required
+              />
+              <input
                 type="number"
                 placeholder="Quarter 1"
                 value={kpiData.q1}
@@ -98,14 +107,7 @@ function KeyPerformanceArea({kpa}) {
                 className="inputField"
                 required
               />
-              <input
-                type="number"
-                placeholder="Yearly Target"
-                value={kpiData.target}
-                onChange={(e) => setKpiData({ ...kpiData, target: parseInt(e.target.value) })}
-                className="inputField"
-                required
-              />
+              
               <button key={kpa.id} className='addButton' onClick={() => handleAddKPI(kpa.id)}>Add KPI</button>
             </div>
           )}

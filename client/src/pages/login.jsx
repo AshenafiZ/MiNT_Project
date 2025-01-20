@@ -18,6 +18,7 @@ function Login(){
         try {
             const response = await axios.post('/api/user/login', { email, password }, { withCredentials: true});
             loginUser(response.data);
+            console.log(response)
             if (response.data.success) {
                 const { role} = response.data;
                 if (role === 'admin') navigate('/admin');

@@ -18,7 +18,7 @@ module.exports = (app) => {
   app.use(cookieParser());
   app.use(bodyParser.urlencoded({ extended: true }));
 
-  app.use(upload.single('profile_photo'));
+ 
 
   console.log('Middleware configured.');
 };
