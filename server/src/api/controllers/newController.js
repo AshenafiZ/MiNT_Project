@@ -62,16 +62,16 @@ const getAllGoals = async (req, res) => {
           title: kpi.title,
           unit: kpi.unit,
           year: gregorianToEthiopianYear(kpi.createdAt), 
-          q1: kpi.q1,
-          q2: kpi.q2,
-          q3: kpi.q3,
-          q4: kpi.q4,
-          yearly: (kpi.q1 || 0) + (kpi.q2 || 0) + (kpi.q3 || 0) + (kpi.q4 || 0),
-          a1: kpi.a1,
-          a2: kpi.a2,
-          a3: kpi.a3,
-          a4: kpi.a4,
-          target: (kpi.a1 || 0) + (kpi.a2 || 0) + (kpi.a3 || 0) + (kpi.a4 || 0),
+          q1: parseFloat(  kpi.q1),
+          q2: parseFloat( kpi.q2),
+          q3: parseFloat( kpi.q3),
+          q4: parseFloat( kpi.q4),
+          target:  parseFloat((kpi.q1) || 0) +  parseFloat((kpi.q2) || 0) +  parseFloat((kpi.q3) || 0) +  parseFloat((kpi.q4) || 0),
+          a1: parseFloat( kpi.a1),
+          a2: parseFloat( kpi.a2),
+          a3: parseFloat( kpi.a3),
+          a4: parseFloat( kpi.a4),
+          achieved:  parseFloat((kpi.a1) || 0) +  parseFloat((kpi.a2) || 0) +  parseFloat((kpi.a3) || 0) +  parseFloat((kpi.a4) || 0),
           kpa_id: kpi.kpa_id,
           office_id: kpi.office_id,
           createdAt: kpi.createdAt,
@@ -86,6 +86,8 @@ const getAllGoals = async (req, res) => {
     res.status(500).json({ message: "Error fetching goals." });
   }
 };
+
+
 
 const createGoal = async (req, res) => {
   try {
@@ -132,7 +134,7 @@ const addKpa = async (req, res) => {
     const newKpa = await Kpa.create({
       title,
       description,
-      status,
+      status, 
       goal_id: goal.id, 
       approved_by,
       approved_at: approved_by ? new Date() : null, 
@@ -152,15 +154,12 @@ const addKpa = async (req, res) => {
 const addKpi = async (req, res) => {
   try {
     const { kpaId } = req.params; 
-    console.log(kpaId)
-    const { title, unit, q1, q2, q3, q4, a1, a2, a3, a4, office_id } = req.body;
+    const { title, unit, q1, q2, q3, q4, a1, a2, a3, a4} = req.body;
 
     
     if (!title ) {
       return res.status(400).json({ message: "Title, unit, and year are required for KPI." });
     }
-
-
     const kpa = await Kpa.findByPk(kpaId);
     console.log(kpaId)
 

@@ -99,7 +99,6 @@ const createRole = async (req, res) => {
   }
 };
 
-// Fetch all roles
 const roles = async (req, res) => {
   try {
     const result = await Role.findAll({

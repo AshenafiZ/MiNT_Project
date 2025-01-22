@@ -33,11 +33,11 @@ configureMiddleware(app);
 })();
 
 app.use('/api/user', userRouter);
-// app.use('/api/admin', adminRuter);
-// app.use('/api/minister', ministerRouter);
+app.use('/api/admin', adminRuter);
+app.use('/api/minister', ministerRouter);
 app.use('/api/strategy', strategyRoute);
-// app.use('/api/sector', sectorRouter);
-// app.use('/api/office', officeRouter);
+app.use('/api/sector', sectorRouter);
+app.use('/api/office', officeRouter);
 
 
 app.use(errorHandler)

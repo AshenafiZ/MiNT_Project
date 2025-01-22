@@ -4,7 +4,7 @@ const verifyRole = require('../middlewares/authMiddleware');
 
 const router = express.Router();
 
-// router.use(verifyRole(['minister'])); 
+router.use(verifyRole(['minister'])); 
 
 router.post('/goal/approval/:id', ministerController.updateGoal);
 router.post('/kpa/approval/:id', ministerController.updateKpa);
