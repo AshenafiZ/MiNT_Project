@@ -22,7 +22,7 @@ function KeyPerformanceArea({kpa}) {
   const status = kpa.status;
   const handleAddKPI = async (newId) => {
     try {
-      const response = await axios.post(`http://localhost:5000/api/strategy/1/kpi`, {...kpiData, goal: 2}, {withCredentials: true});
+      const response = await axios.post(`/api/strategy/${newId}/kpi`, {...kpiData, new: true}, {withCredentials: true});
       if (response.data.success) {
         alert('Successfully Added KPI')
       }
@@ -44,7 +44,7 @@ function KeyPerformanceArea({kpa}) {
 
   const handleApprove = async(id, status) => {
     try {
-      const response = await axios.post(`/api/minister/kpa/approval/${id}`, {status, user_id: user.id})
+      const response = await axios.post(`/api/minister/kpa/approval/${id}`, {status, user_id: user.id}, {withCredentials: true});
       if (response.data.success) {
         alert('Successfully Approved')
       }

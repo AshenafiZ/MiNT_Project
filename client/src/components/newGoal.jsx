@@ -6,16 +6,27 @@ const AddPlan = () => {
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const [errorMessage , setErrorMessage] = useState();
     const { user } = useUser();
 
   
     const handleAddGoal = async (id) => {
       try {
-        const response = await axios.post('/api/strategy/goal', { title, description})
-        setTitle('');
-        setDescription('');
+        const response = await axios.post('/api/strategy/goal', { title, description});
+        if (response.data.success){
+          setTitle('');
+          setDescription('');
+          alert(response.data.message);
+        } else {
+          console.log(response.data.message);
+          setErrorMessage(response.data.message);
+          alert(response.data.message);
+        }
+        
       } catch (error) {
-        console.error('Error adding KPA: ', error);
+        console.error('Error adding Goal: ', error);
+        alert(error.response.data.message);
+          
       }
     };
   
@@ -39,7 +50,7 @@ const AddPlan = () => {
             onChange={(e) => setDescription(e.target.value)}
             className='inputField'
             />
-            <button className='addButton' onClick={handleAddGoal}>Add KPA</button>
+            <button className='addButton' onClick={handleAddGoal}>Add Goal</button>
         </div>
         
       </div>

@@ -11,7 +11,7 @@ const getAllKpas = async (req, res) => {
         where: kpaWhereClause, 
         include: [
           {
-            model: Kpi,
+            model: Kpi, 
             as: "kpis",
             required: false, 
             order: [["createdAt", "DESC"]], 

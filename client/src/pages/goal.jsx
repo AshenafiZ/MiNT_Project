@@ -10,7 +10,7 @@ const GoalPage = () =>  {
     useEffect(() =>{
       const fetchGoals = async () => {
         try {
-          const response = await axios.get('/api/strategy/goals')
+          const response = await axios.get('/api/strategy/goals', {withCredentials: true})
           setGoals(response.data);
           setLoading(false);
 
