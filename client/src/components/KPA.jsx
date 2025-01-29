@@ -52,16 +52,7 @@ function KeyPerformanceArea({kpa}) {
       console.error("Error: ",error)
     }
   };
-  const handleAssign = async() => {
-    try {
-      const response = await axios.post(`/api/sector/kpas/assign`, {id: sector}, {withCredentials: true})
-      if (response.data.success) {
-        alert('Successfully Assigned');
-      }
-    } catch (error) {
-      console.error("Error: ",error);
-    }
-  };
+  
 
   return (
     <div className='kpa'>
@@ -130,21 +121,7 @@ function KeyPerformanceArea({kpa}) {
           <button onClick={() => handleApprove(kpa.id, "rejected")} className='rejectButton'>Reject</button>
         </div>
       }
-      {user.role === 'sector' && user.office_id === null &&
-        <div className='actionButtons' >
-          <input
-              type="number"
-              placeholder="Enter office id"
-              value={sector}
-              onChange={(e) => setSecor(parseInt(e.target.value))}
-              className="inputField"
-              required
-            />
-          <button onClick={handleAssign} className='approveButton'>Assign</button>
-          
-        </div>
-      }
-      
+           
       <KeyPerformanceIndicatorList keyPerformanceIndicators={kpa.kpis} />
 
     </div>

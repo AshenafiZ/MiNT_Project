@@ -30,7 +30,8 @@ function Login(){
                 setError(response.data.message || 'Login failed. Please try again.');
             }
         } catch (err) {
-            alert("An error occurred. Please check your credentials and try again.")
+            console.error('Error logging in:', err.response);
+            alert(err.response.data.message || 'LOGIN FAILED HAILE');
         }
     };
 

@@ -28,6 +28,7 @@ const navConfig = {
   office: [
     { path: '/office', label: 'Dashboard' },
     { path: '/office/monitor', label: 'Monitor' },
+    { path: '/office/kpis', label: 'KPIs' },
     { path: '/office/progress', label: 'Progress' },
   ],
   strategy: [

@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios'
+import axios from 'axios';
+import { useUser } from '../context/userContext';
 import GoalList from '../components/goalList';
 import '../style/components/goalPage.css';
 
 const GoalPage = () =>  {
     const [goals, setGoals] = useState([])
     const [loading, setLoading] = useState(true)
+    const { user } = useUser();
 
     useEffect(() =>{
       const fetchGoals = async () => {
         try {
-          const response = await axios.get('/api/strategy/goals', {withCredentials: true})
+          const response = await axios.get(`/api/${user.role}/goals`, {withCredentials: true})
           setGoals(response.data);
           setLoading(false);
 

@@ -1,4 +1,16 @@
 const { Goal, Kpa, Kpi } = require("../models");
+const { toEthiopian } = require("ethiopian-date"); 
+
+const gregorianToEthiopianYear = (createdAt) => {
+  if (isNaN(createdAt.getTime())) {
+    throw new Error("Invalid Date provided");
+  }
+  const year = createdAt.getFullYear();
+  const month = createdAt.getMonth() + 1; 
+  const date = createdAt.getDate();
+  const ethiopianDate = toEthiopian(year, month, date); 
+  return ethiopianDate[0]; 
+};
 
 const getAllKpas = async (req, res) => {
     try {
@@ -58,8 +70,21 @@ const getAllKpas = async (req, res) => {
       res.status(500).json({ message: "Error fetching KPAs." });
     }
   };
-  
+const assign = async(req, res) => {
+  const {id} = req.params;
+  const {office} = req.body;
+  try {
+    const kpi = await Kpi.update(
+      {office_id: office},
+      {where: {id}}
+    )
+    res.status(200).json({kpi, success: true, message: 'Kpi assigned successfully.'})
+  } catch (error) {
+    console.error('Error in updating: ', error);
+    res.status(500).json({message: 'Error assigning KPI '})
+  }
+} 
 
 module.exports = {
-    getAllKpas,
+    getAllKpas, assign
 }

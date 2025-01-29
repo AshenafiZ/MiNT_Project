@@ -1,6 +1,24 @@
+import { useState } from "react";
+import axios from "axios";
+import { useUser} from "../context/userContext";
+
 
 const KeyPerformanceIndicator = ({kpi, id}) => {
-
+    const {user} = useUser();
+    const [ office, setOffice] = useState();
+    const handleAssign = async() => {
+        try {
+        console.log(office);
+          const response = await axios.post(`/api/sector/kpas/assign/${id}`, {office: office}, {withCredentials: true})
+          if (response.data.success) {
+            setOffice(''); 
+            alert('Successfully Assigned');
+          }
+        } catch (error) {
+          console.error("Error: ",error);
+        }
+      };
+    
     return(
         <div className="kpi">
             <h3 className="kpiTitle">{kpi.title}</h3>
@@ -36,6 +54,21 @@ const KeyPerformanceIndicator = ({kpi, id}) => {
                     
                     </tbody>
                 </table>
+                {user.role === 'sector' && kpi.office_id === null &&
+                    <div className='actionButtons' >
+                    <input
+                    
+                        type="number"
+                        placeholder="Enter office id"
+                        value={office}
+                        onChange={(e) => setOffice(parseInt(e.target.value))}
+                        className="inputField"
+                        required
+                        />
+                    <button onClick={handleAssign} className='approveButton'>Assign</button>
+                    
+                    </div>
+                }
             </div> 
         </div>
     );

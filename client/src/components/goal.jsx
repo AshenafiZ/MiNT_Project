@@ -6,20 +6,23 @@ import { useUser } from '../context/userContext';
 const Goal = ({goal}) => {
 
     const [showKpaForm, setShowKpaForm] = useState(false);
+    const [message, setMessage] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const { user } = useUser();
-
-  
+      
     const handleAddKPA = async (id) => {
       try {
         const response = await axios.post(`/api/strategy/${id}/kpa`, {title, description}, {withCredentials: true});
+        message(response.data.message);
         setTitle('');
         setDescription('');
         setShowKpaForm(false);
       } catch (error) {
         console.error('Error adding KPA: ', error);
+        setMessage(error.data.message);
       }
+      alert(message);
     };
   
     return (

@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import OfficeLayout from '../layouts/officeLayout';
 import { useUser } from '../context/userContext';
+import KeyPerformanceIndicators from '../pages/office/kpis';
 
 function OfficeRoutes() {
   const { user } = useUser();
@@ -14,7 +15,7 @@ function OfficeRoutes() {
     <OfficeLayout>
       <Routes>
         <Route path="/" element={<div>Wellcome officer</div>} />
-        <Route path="/tasks" element={<div>Tasks </div>} />
+        <Route path="/kpis" element={<KeyPerformanceIndicators/>} />
         <Route path='/profile' element={<div>User profiles</div>} />
         <Route path="/notifications" element={<div>Notifications </div>} />
       </Routes>

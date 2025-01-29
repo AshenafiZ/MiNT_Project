@@ -3,7 +3,7 @@ function Sector(){
     const { user } = useUser();
 
     return(
-        <div>minister page  {user.name}</div>
+        <div>sector page  {user.name}</div>
     );
 }
 
