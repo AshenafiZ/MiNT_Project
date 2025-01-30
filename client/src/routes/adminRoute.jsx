@@ -1,16 +1,16 @@
 import React from 'react';
-import { Routes, Route} from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate} from 'react-router-dom';
 import AdminLayout from '../layouts/adminLayout';
 import { useUser } from '../context/userContext';
 
 
 function AdminRoutes() {
+  const navigate = useNavigate();
   const { user } = useUser();
-
-  if (payload.role !== 'admin'){
+  const role = user?.role || 'user';
+  if (role !== 'admin'){
     return (<div>Unauthorize</div>)
   }
-
   return (
     <AdminLayout>
       <Routes>
@@ -21,6 +21,7 @@ function AdminRoutes() {
         <Route path="/ministers" element={<div>UserManagement </div>} />
         <Route path="/settings" element={<div>Settings </div>} />
         <Route path="/profile" element={<div>Settings </div>} />
+        <Route path="/*" element={<Navigate to="/login" />} />
       </Routes>
     </AdminLayout>
   );

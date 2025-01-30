@@ -4,10 +4,10 @@ const verifyRole = require('../middlewares/authMiddleware');
 
 const router = express.Router();
 
-// router.use(verifyRole(['sector'])); 
+router.use(verifyRole(['sector'])); 
 
 router.get('/kpas/:id', sectorController.getAllKpas);
 router.post('/kpas/assign/:id', sectorController.assign);
 
 
-module.exports = router; 
+module.exports = router;  

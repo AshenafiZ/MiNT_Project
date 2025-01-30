@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate , useNavigate } from 'react-router-dom';
 import SectorLayout from '../layouts/sectorLayout';
 import KeyPerformanceArea from '../pages/sector/kpas';
 import Sector from '../pages/sector/sector';
@@ -7,9 +7,10 @@ import { useUser } from '../context/userContext';
 
 
 function SectorRoutes() {
+  const navigate = useNavigate();
   const { user } = useUser()
-  
-  if (user.role !== 'sector'){
+  const role = user?.role || 'user';
+  if (role !== 'sector'){
     return (<div>Unauthorize</div>)
   }
 
@@ -21,6 +22,7 @@ function SectorRoutes() {
         <Route path="/projects" element={<div>Projects </div>} />
         <Route path="/profile" element={<div>User profile </div>} />
         <Route path="/teams" element={<div >Teams </div>} />
+        <Route path="/*" element={<Navigate to="/login" />} />
       </Routes>
     </SectorLayout>
   );

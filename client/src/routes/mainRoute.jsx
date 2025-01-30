@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import MainLayout from '../layouts/mainLayout';
 import Home from '../pages/main/home'
 import Signup from '../pages/signup';
@@ -18,7 +18,8 @@ function MainRoutes() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />               
         <Route path="/logout" element={<Logout />} />  
-        <Route path="/email" element={<Email />} />  
+        <Route path="/email" element={<Email />} />
+        <Route path="/*" element={<Navigate to="/login" />} />
       </Routes>
     </MainLayout>
   );

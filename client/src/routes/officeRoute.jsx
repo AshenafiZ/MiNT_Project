@@ -1,13 +1,14 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import OfficeLayout from '../layouts/officeLayout';
 import { useUser } from '../context/userContext';
 import KeyPerformanceIndicators from '../pages/office/kpis';
 
 function OfficeRoutes() {
+  const navigate = useNavigate();
   const { user } = useUser();
-
-  if (user.role !== 'office'){
+  const role = user?.role || 'user';
+  if (role !== 'office'){
     return (<div>Unauthorize</div>)
   }
   
@@ -18,6 +19,7 @@ function OfficeRoutes() {
         <Route path="/kpis" element={<KeyPerformanceIndicators/>} />
         <Route path='/profile' element={<div>User profiles</div>} />
         <Route path="/notifications" element={<div>Notifications </div>} />
+        <Route path="/*" element={<Navigate to="/login" />} />
       </Routes>
     </OfficeLayout>
   );

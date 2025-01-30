@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import MinisterLayout from '../layouts/ministerLayout';
 import GoalPage from '../pages/goal';
 import { useUser } from '../context/userContext';
@@ -9,10 +9,9 @@ import Minister from '../pages/minister/minister';
 import Approval from '../pages/minister/approved';
 
 function MinisterRoutes() {
-
   const { user } = useUser();
-
-  if (user.role !== 'minister'){
+  const role = user?.role || 'user';
+  if (role !== 'minister'){
     return (<div>Unauthorize</div>)
   }
   
@@ -26,6 +25,7 @@ function MinisterRoutes() {
         <Route path="/approvals" element={<Approval />} />
         <Route path="/reports" element={<div>Reports </div>} />
         <Route path="/natification" element={<div>Reports </div>} />
+        <Route path="/*" element={<Navigate to="/login" />} />
       </Routes>
     </MinisterLayout>
   );
