@@ -1,6 +1,7 @@
 const express = require('express');
 const ministerController = require('../controllers/ministerController');
 const strategyController = require('../controllers/strategyController');
+const sectorsController = require('../controllers/sectorController');
 const verifyRole = require('../middlewares/authMiddleware');
 
 const router = express.Router();
@@ -8,6 +9,7 @@ const router = express.Router();
 router.use(verifyRole(['minister'])); 
 
 router.get('/goals', strategyController.getAllGoals); 
+router.get('/kpas', sectorsController.getAllKpas); 
 router.post('/goal/approval/:id', ministerController.updateGoal);
 router.post('/kpa/approval/:id', ministerController.updateKpa);
 router.get('/kpas/pending', ministerController.pendingKpas);

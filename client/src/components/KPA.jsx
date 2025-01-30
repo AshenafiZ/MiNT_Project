@@ -5,7 +5,6 @@ import { useUser } from '../context/userContext';
 
 function KeyPerformanceArea({kpa}) {
   const [error, setError] = useState();
-  const [sector, setSecor] = useState();
   const [showKpiForm, setShowKpiForm] = useState(false)
   const [kpiData, setKpiData] = useState({
     title: "",

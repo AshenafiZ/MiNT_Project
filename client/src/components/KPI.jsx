@@ -6,6 +6,40 @@ import { useUser} from "../context/userContext";
 const KeyPerformanceIndicator = ({kpi, id}) => {
     const {user} = useUser();
     const [ office, setOffice] = useState();
+    const [showKpiForm, setShowKpiForm] = useState(false);
+    const [kpiData, setKpiData] = useState({
+    
+            kpi_id: 0,
+            a1: 0,
+            a2: 0,
+            a3: 0,
+            a4: 0,
+        
+          });
+          const handleAddValues = async (newId) => {
+            try {
+              const response = await axios.post(`/api/office/kpis/${newId}`, {...kpiData, new: true}, {withCredentials: true});
+              if (response.data.success) {
+                alert('Successfully Added KPI');
+              }
+              console.log(response.data);
+              setKpiData({
+                id: 0,
+                a1: 0,
+                a2: 0,
+                a3: 0,
+                a4: 0,
+              });
+        
+            } catch (error) {
+              setError(error)
+              console.error('Error in adding kpi: ', error);
+            }
+            setShowKpiForm(false);
+          }
+    const handleShow = () => {
+        setShowKpiForm(!showKpiForm);
+    };
     const handleAssign = async() => {
         try {
         console.log(office);
@@ -68,6 +102,45 @@ const KeyPerformanceIndicator = ({kpi, id}) => {
                     <button onClick={handleAssign} className='approveButton'>Assign</button>
                     
                     </div>
+                }
+                <button onClick={handleShow} className="addButton"  >Add Values</button>
+                {user.role === 'office' && showKpiForm &&
+                    <div className="form">
+            
+                    <input
+                      type="number"
+                      placeholder="Quarter 1"
+                      value={kpiData.a1}
+                      onChange={(e) => setKpiData({ ...kpiData, a1: parseInt(e.target.value) })}
+                      className="inputField"
+                      required
+                    />
+                    <input
+                      type="number"
+                      placeholder="Quarter 2"
+                      value={kpiData.a2}
+                      onChange={(e) => setKpiData({ ...kpiData, a2: parseInt(e.target.value) })}
+                      className="inputField"
+                      required
+                    />
+                    <input
+                      type="number"
+                      placeholder="Quarter 3"
+                      value={kpiData.a3}
+                      onChange={(e) => setKpiData({ ...kpiData, a3: parseInt(e.target.value) })}
+                      className="inputField"
+                      required
+                    />
+                    <input
+                      type="number"
+                      placeholder="Quarter 4"
+                      value={kpiData.a4}
+                      onChange={(e) => setKpiData({ ...kpiData, a4: parseInt(e.target.value) })}
+                      className="inputField"
+                      required
+                    />
+                    <button key={kpi.id} className='addButton' onClick={() => handleAddValues(kpi.id)}>Add KPI</button>
+                  </div>
                 }
             </div> 
         </div>

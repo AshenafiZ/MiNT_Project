@@ -14,7 +14,6 @@ const KeyPerformanceArea = () => {
         const response = await axios.get(`/api/sector/kpas/${user.sector_id}`, {withCredentials: true});
         setKpas(response.data);
         setLoading(false);
-        console.log(user);
       } catch (error) {
         console.error("Error fetching KPAs", error);
       }

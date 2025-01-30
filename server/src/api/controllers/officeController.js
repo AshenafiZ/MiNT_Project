@@ -48,8 +48,24 @@ const getAllKpis = async (req, res) => {
       res.status(500).json({ message: "Error fetching KPIs." });
     }
   };
+const addKpiValue = async (req, res) => {
+    try {
+      const { id } = req.params; 
+      const {  a1, a2, a3, a4} = req.body;
+      console.log(a1, a2, a3, a4, id);
+      const newKpi = await Kpi.update(
+        { a1, a2, a3, a4 },
+        {where: {id}}
+      );
+      res.status(200).json({message: "Successfully updated", newKpi})
+      
+    } catch (error) {
+      console.error("Error in updating: ",error);
+      res.status(500).json({message: 'Error updating status'})
+  } 
+  };
  
 
 module.exports = {
-    getAllKpis
+    getAllKpis, addKpiValue
 }

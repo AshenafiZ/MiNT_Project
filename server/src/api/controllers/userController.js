@@ -120,7 +120,7 @@ const roles = async (req, res) => {
 
 const signup = async (req, res) => {
   const { firstname, lastname, email, phone, role, password } = req.body;
-  const profilePhoto = req.file; // Uploaded file
+  const profilePhoto = req.file; 
 
   try {
     const existingUser = await User.findOne({ where: { email } });
@@ -143,7 +143,7 @@ const signup = async (req, res) => {
       phone,
       role_id: result.id,
       password: hashedPassword,
-      profile_photo: profilePhoto ? profilePhoto.buffer : null, // Save file buffer as BLOB
+      profile_photo: profilePhoto ? profilePhoto.buffer : null, 
     });
 
     return res.status(201).json({ message: 'User registered successfully', user: newUser });

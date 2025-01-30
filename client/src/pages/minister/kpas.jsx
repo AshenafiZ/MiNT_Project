@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import KeyPerformanceAreaList from '../../components/KPAList';
 import { useUser } from '../../context/userContext';
-import KeyPerformanceIndicatorList from '../../components/KPIList';
 
-const keyPerformanceIndicators = () => {
-  const [kpis, setKpis] = useState([]);
+const KeyPerformanceArea = () => {
+  const [kpas, setKpas] = useState([]);
   const [loading, setLoading] = useState(true);
   const { user } = useUser();
 
   useEffect(() => {
     const fetchKpas = async () => {
       try {
-        const response = await axios.get(`/api/office/kpis/${user.office_id}`, {withCredentials: true});
-        setKpis(response.data);
-        console.log(response.data);
-        console.log(user);
+        const response = await axios.get(`/api/minister/kpas`, {withCredentials: true});
+        setKpas(response.data);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching KPAs", error);
@@ -25,10 +23,10 @@ const keyPerformanceIndicators = () => {
   if (loading) return <div className="loading">loading</div>
   return (
     <div className="appContiner">
-      <h1>KPIs Assigned To This office{}</h1>
-      <KeyPerformanceIndicatorList keyPerformanceIndicators = {kpis} />
+      <h1>All KPAs </h1>
+      <KeyPerformanceAreaList keyPerformanceAreas = {kpas} />
     </div>
   )
 }
 
-export default keyPerformanceIndicators;
+export default KeyPerformanceArea;
