@@ -1,207 +1,428 @@
-.home-container {
-  
-}
-
 /* Hero Section */
 .hero-section {
-  position: relative;
-  min-height: 100vh;
-  color: rgb(44, 4, 4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  overflow: hidden;
-  /* padding-top: 80px; 
-  margin-top: 60px;   */
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f0f8ff, #e6f0fa);
+    animation: fadeIn 0.8s ease forwards;
 }
 
 .image-container {
-  position: relative;
-  width: 500px;
-  height: 300px;
-  max-width: 1200px;
-  margin: 0 auto;
-  border-radius: 10px;
-  overflow: hidden; 
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    height: 400px;
+    margin: 0 auto;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .hero-image {
-  width: 100%;
-  height: 100%;
-  transition: opacity 1s ease-in-out;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.4;
+    transition: opacity 1s ease-in-out, transform 0.5s ease;
+    animation: opacityChange 6s infinite ease-in-out;
 }
 
-/* Arrow Styles */
+.hero-image:hover {
+    transform: scale(1.05);
+}
+
+/* Navigation Arrows */
 .navigation-arrows {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  z-index: 3;
-  transform: translateY(-50%);
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    z-index: 3;
+    transform: translateY(-50%);
+    padding: 0 20px;
 }
 
 .arrow {
-  background: none;
-  border: none;
-  font-size: 2rem;
-  color: rgba(255, 255, 255, 0.6);  
-  cursor: pointer;
-  padding: 2px;
-  transition: background-color 0.3s, filter 0.3s;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    font-size: 2.2rem;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .arrow:hover {
-  color: rgba(255, 255, 255, 2);  
-  background-color: transparent;
-  filter: brightness(1.5); 
+    background: #914caf;
+    transform: scale(1.2);
+    box-shadow: 0 4px 15px rgba(145, 76, 175, 0.4);
 }
 
-.left-arrow {
-  width: 30px;
-  margin-left: 5px;
-}
-
-.right-arrow {
-  width: 30px;
-  margin-right: 5px;
+.left-arrow, .right-arrow {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Hero Text */
 .hero-content {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards 0.3s;
 }
 
 .hero-text h1 {
-  font-size: 3rem;
-  margin-bottom: 20px;
-  font-weight: bold;
-  color: #914caf;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #914caf;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.hero-text h1::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: #914caf;
+    transform: translateX(-50%);
+    transition: width 0.4s ease;
+}
+
+.hero-text h1:hover::after {
+    width: 120px;
 }
 
 .hero-text p {
-  color: #914caf;
-  font-size: 1.5rem;
-  margin-bottom: 30px;
+    font-size: 1.6rem;
+    color: #914caf;
+    margin-bottom: 35px;
+    font-weight: 400;
 }
 
 /* Mission Section */
 .mission {
-  padding: 50px 20px;
-  background-color: #fff;
-  text-align: center;
+    padding: 60px 30px;
+    background: #ffffff;
+    text-align: center;
+    opacity: 0;
+    animation: slideIn 0.6s ease forwards 0.4s;
 }
 
 .mission h2 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
+    font-size: 2.8rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.mission h2::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #4CAF50;
+    transform: translateX(-50%);
+    transition: width 0.4s ease;
+}
+
+.mission h2:hover::after {
+    width: 100px;
 }
 
 .mission p {
-  font-size: 1.2rem;
-  line-height: 1.6;
+    font-size: 1.3rem;
+    line-height: 1.8;
+    color: #555;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-/* Services Section */
+/* Tech Services Section */
 .tech-services {
-  padding: 50px 20px;
-  background-color: #f1f1f1;
-  text-align: center;
+    padding: 60px 30px;
+    background: linear-gradient(135deg, #f1f1f1, #e0e0e0);
+    text-align: center;
+    opacity: 0;
+    animation: slideIn 0.6s ease forwards 0.5s;
 }
 
 .tech-services h2 {
-  font-size: 2.5rem;
-  margin-bottom: 40px;
+    font-size: 2.8rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.tech-services h2::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #4CAF50;
+    transform: translateX(-50%);
+    transition: width 0.4s ease;
+}
+
+.tech-services h2:hover::after {
+    width: 100px;
 }
 
 .services-container {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .service-card {
-  background-color: #fff;
-  padding: 30px;
-  width: 250px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: linear-gradient(135deg, #ffffff, #f9f9f9);
+    padding: 35px;
+    width: 280px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(145, 76, 175, 0.1), transparent);
+    transition: transform 0.5s ease;
+    transform: scale(0);
+}
+
+.service-card:hover::before {
+    transform: scale(1);
 }
 
 .service-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-12px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .service-card h3 {
-  font-size: 1.5rem;
-  margin-bottom: 15px;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
 }
 
 .service-card p {
-  font-size: 1rem;
-  color: #666;
+    font-size: 1.05rem;
+    color: #666;
+    line-height: 1.7;
 }
 
 /* Impact Section */
 .impact {
-  padding: 50px 20px;
-  background-color: #fff;
-  text-align: center;
+    padding: 60px 30px;
+    background: #ffffff;
+    text-align: center;
+    opacity: 0;
+    animation: slideIn 0.6s ease forwards 0.6s;
 }
 
 .impact h2 {
-  font-size: 2.5rem;
-  margin-bottom: 40px;
+    font-size: 2.8rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.impact h2::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #4CAF50;
+    transform: translateX(-50%);
+    transition: width 0.4s ease;
+}
+
+.impact h2:hover::after {
+    width: 100px;
 }
 
 .stats {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .stat {
-  background-color: #f1f1f1;
-  padding: 30px;
-  width: 200px;
-  border-radius: 10px;
-  text-align: center;
+    background: linear-gradient(135deg, #f1f1f1, #e0e0e0);
+    padding: 35px;
+    width: 220px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    animation: fadeInUp 0.5s ease forwards;
+    animation-delay: calc(0.1s * var(--i));
+}
+
+.stat:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .stat h3 {
-  font-size: 2.5rem;
-  color: #4CAF50;
-  margin-bottom: 10px;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #4CAF50;
+    margin-bottom: 15px;
 }
 
 .stat p {
-  font-size: 1.2rem;
-  color: #666;
+    font-size: 1.3rem;
+    color: #666;
+    line-height: 1.6;
 }
 
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
 @keyframes opacityChange {
-  0% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 0.9;
-  }
-  100% {
-    opacity: 0.3;
-  }
+    0% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+    100% { opacity: 0.4; }
 }
 
-.hero-image{
-  opacity: 0.3;  
-  animation: opacityChange 4s infinite; 
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .hero-section {
+        min-height: 80vh;
+    }
+
+    .image-container {
+        height: 350px;
+    }
+
+    .hero-text h1 {
+        font-size: 2.8rem;
+    }
+
+    .hero-text p {
+        font-size: 1.4rem;
+    }
+
+    .services-container, .stats {
+        gap: 25px;
+    }
+
+    .service-card, .stat {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 70vh;
+        padding: 20px;
+    }
+
+    .image-container {
+        height: 300px;
+    }
+
+    .hero-text h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero-text p {
+        font-size: 1.2rem;
+        margin-bottom: 25px;
+    }
+
+    .mission, .tech-services, .impact {
+        padding: 40px 20px;
+    }
+
+    .mission h2, .tech-services h2, .impact h2 {
+        font-size: 2.2rem;
+    }
+
+    .mission p, .service-card p, .stat p {
+        font-size: 1.1rem;
+    }
+
+    .arrow {
+        font-size: 1.8rem;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-text h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero-text p {
+        font-size: 1rem;
+    }
+
+    .image-container {
+        height: 250px;
+    }
+
+    .mission h2, .tech-services h2, .impact h2 {
+        font-size: 1.8rem;
+    }
+
+    .service-card, .stat {
+        padding: 25px;
+    }
+
+    .stat h3 {
+        font-size: 2.2rem;
+    }
 }

@@ -1,56 +1,196 @@
+/* Signup Container */
 .signup-container {
     max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .sh2 {
+    margin: 30px auto;
+    padding: 30px;
+    background: linear-gradient(135deg, #f9f9f9, #ffffff);
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    font-family: 'Inter', 'Arial', sans-serif;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.signup-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Signup Heading */
+.sh2 {
     text-align: center;
-  }
-  
-  .input-group {
-    margin-bottom: 15px;
-  }
-  
-  .slabel {
-    font-size: 14px;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.sh2::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #4CAF50;
+    transform: translateX(-50%);
+    transition: width 0.4s ease;
+}
+
+.sh2:hover::after {
+    width: 80px;
+}
+
+/* Input Group */
+.input-group {
+    margin-bottom: 20px;
+}
+
+/* Label Styles */
+.slabel {
+    font-size: 0.95rem;
     color: #333;
-  }
-  
-  .sinput {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 8px;
+    transition: color 0.3s ease;
+}
+
+.slabel:hover {
+    color: #4CAF50;
+}
+
+/* Input Styles */
+.sinput {
     width: 100%;
-    padding: 10px;
+    padding: 12px 15px;
     margin-top: 5px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-  }
-  
-  .sbutton {
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Inter', 'Arial', sans-serif;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sinput:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
+}
+
+/* Button Styles */
+.sbutton {
     width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
+    padding: 12px;
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: #ffffff;
     border: none;
-    border-radius: 5px;
-    font-size: 16px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-family: 'Inter', 'Arial', sans-serif;
     cursor: pointer;
-  }
-  
-  .sbutton:hover {
-    background-color: #45a049;
-  }
-  
-  .error-message {
-    color: red;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sbutton::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.4s ease;
+}
+
+.sbutton:hover::before {
+    left: 100%;
+}
+
+.sbutton:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+}
+
+.sbutton:active {
+    transform: scale(0.95);
+}
+
+/* Error and Success Messages */
+.error-message {
+    color: #dc3545;
+    font-size: 0.95rem;
     text-align: center;
-  }
-  
-  .success-message {
-    color: green;
+    margin-bottom: 15px;
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.success-message {
+    color: #4CAF50;
+    font-size: 0.95rem;
     text-align: center;
-  }
-  
+    margin-bottom: 15px;
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .signup-container {
+        margin: 20px;
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .sh2 {
+        font-size: 1.6rem;
+    }
+
+    .slabel, .sinput, .sbutton {
+        font-size: 0.95rem;
+    }
+
+    .error-message, .success-message {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .signup-container {
+        padding: 15px;
+    }
+
+    .sh2 {
+        font-size: 1.4rem;
+    }
+
+    .sinput {
+        padding: 10px;
+    }
+
+    .sbutton {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .error-message, .success-message {
+        font-size: 0.85rem;
+    }
+}
